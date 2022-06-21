@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
  * @since 2022-06-15 11:08:11
  */
 @Controller
-@RequestMapping("/blog/tb-test")
+@RequestMapping("/tb-test")
 @Api(tags = "测试controller")
 public class TbTestController {
     @ApiOperation("测试方法接口")

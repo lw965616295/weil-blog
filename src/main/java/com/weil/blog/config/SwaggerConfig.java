@@ -1,4 +1,4 @@
-package com.weil.blog.common;
+package com.weil.blog.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
