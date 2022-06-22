@@ -1,4 +1,4 @@
-package com.weil.blog.controller;
+package com.weil.blog.controller.admin;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @since 2022-06-15 15:21:15
  */
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/admin/user")
 public class UserController {
     @GetMapping("/get")
     @ResponseBody

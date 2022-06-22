@@ -118,4 +118,15 @@ public class MainController {
         // 各维度数据展示
         return "admin/index";
     }
+    /**
+     * 登出
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/6/21 17:21
+     */
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request){
+        request.getSession().removeAttribute("nickname");
+        return "admin/login";
+    }
 }
