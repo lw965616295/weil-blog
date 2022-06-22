@@ -1,7 +1,10 @@
 package com.weil.blog.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.weil.blog.entity.BlogCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -12,5 +15,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-06-22 09:25:13
  */
 public interface IBlogCategoryService extends IService<BlogCategory> {
+    /**
+     * 分页查询分类记录
+     */
+    IPage<BlogCategory> getList(Long page, Long rows);
 
+    /**
+     * 逻辑批量删除
+     */
+    void deleteByIds(List<Integer> ids);
 }

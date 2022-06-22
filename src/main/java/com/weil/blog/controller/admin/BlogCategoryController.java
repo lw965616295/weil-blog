@@ -52,10 +52,7 @@ public class BlogCategoryController {
     @GetMapping("/list")
     @ResponseBody
     public Result<BlogCategory> list(Long page, Long rows){
-        IPage<BlogCategory> categoryPage = new Page<>();
-        categoryPage.setCurrent(page);
-        categoryPage.setPages(rows);
-        IPage<BlogCategory> pages = categoryService.page(categoryPage);
+        IPage<BlogCategory> pages = categoryService.getList(page, rows);
         return Result.success(pages);
     }
     /**
@@ -84,7 +81,7 @@ public class BlogCategoryController {
         if(ids == null || ids.isEmpty()){
             return Result.fail("参数为空！");
         }
-        categoryService.removeBatchByIds(ids);
+        categoryService.deleteByIds(ids);
         return Result.success("操作成功！");
     }
 }
