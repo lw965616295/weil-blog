@@ -3,52 +3,52 @@ package com.weil.blog.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.ToString;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户表
+ * 标签表
  * </p>
  *
  * @author weil
- * @since 2022-06-15 15:21:15
+ * @since 2022-06-24 10:09:56
  */
-@TableName("user")
+@TableName("blog_tag")
 @Data
 @ToString
 @Accessors(chain = true)
-public class User implements Serializable {
+public class BlogTag implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 主键
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
-     * 用户名
+     * 标签名称
      */
+    @NotBlank(message = "标签名不能为空！")
     private String name;
 
     /**
-     * 密码
+     * 是否删除，0否，1是
      */
-    private String password;
+    private Boolean isDel;
 
     /**
-     * 昵称
+     * 创建日期
      */
-    private String nickName;
-
-    /**
-     * 是否禁用：0未禁用，1禁用
-     */
-    private Boolean forbidden;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private LocalDateTime createDate;
 
 }

@@ -24,4 +24,9 @@ public interface IBlogCategoryService extends IService<BlogCategory> {
      * 逻辑批量删除
      */
     void deleteByIds(List<Integer> ids);
+
+    /**
+     * 不分页查询所有分类信息
+     */
+    List<BlogCategory> getAll();
 }

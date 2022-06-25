@@ -28,6 +28,6 @@ public class BlogExceptionHandler {
     @ExceptionHandler(Exception.class)
     public Result exceptionHandler(Exception e){
         log.error(e.getMessage(), e);
-        return Result.fail(e.getClass().getName()+": "+e.getMessage());
+        return Result.fail(e.getMessage());
     }
 }

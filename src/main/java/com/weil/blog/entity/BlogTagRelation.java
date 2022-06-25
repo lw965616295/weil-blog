@@ -8,47 +8,43 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
- * 用户表
+ * 博客-标签关系表
  * </p>
  *
  * @author weil
- * @since 2022-06-15 15:21:15
+ * @since 2022-06-24 13:27:00
  */
-@TableName("user")
+@TableName("blog_tag_relation")
 @Data
 @ToString
 @Accessors(chain = true)
-public class User implements Serializable {
+public class BlogTagRelation implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 关系表id
      */
     @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    private Long id;
 
     /**
-     * 用户名
+     * 博客id
      */
-    private String name;
+    private Long blogId;
 
     /**
-     * 密码
+     * 标签id
      */
-    private String password;
+    private Integer tagId;
 
     /**
-     * 昵称
+     * 创建日期
      */
-    private String nickName;
-
-    /**
-     * 是否禁用：0未禁用，1禁用
-     */
-    private Boolean forbidden;
+    private LocalDateTime createDate;
 
 }

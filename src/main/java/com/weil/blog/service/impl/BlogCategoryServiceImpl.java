@@ -27,12 +27,17 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
         IPage<BlogCategory> categoryPage = new Page<>();
         categoryPage.setCurrent(page);
         categoryPage.setPages(rows);
-        return page(categoryPage, new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getIsDel, 0));
+        return page(categoryPage, new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getIsDel, 0).orderByDesc(BlogCategory::getWeight));
     }
 
     @Override
     public void deleteByIds(List<Integer> ids) {
         List<BlogCategory> collect = ids.stream().map(p -> new BlogCategory().setIsDel(true).setId(p)).collect(Collectors.toList());
         updateBatchById(collect);
+    }
+
+    @Override
+    public List<BlogCategory> getAll() {
+        return list(new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getIsDel, 0).orderByDesc(BlogCategory::getWeight));
     }
 }
