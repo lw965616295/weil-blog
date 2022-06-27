@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * <p>
@@ -90,4 +91,16 @@ public class BlogController {
         return blogService.saveOrUpdateBlog(blog);
     }
 
+    /**
+     * 批量逻辑删除博客
+     * @param ids 博客id集合
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/6/27 15:31
+     */
+    @DeleteMapping("")
+    @ResponseBody
+    public Result del(@RequestBody List<Long> ids){
+        return blogService.delBatch(ids);
+    }
 }

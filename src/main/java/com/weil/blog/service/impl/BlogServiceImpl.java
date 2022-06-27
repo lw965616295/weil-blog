@@ -49,6 +49,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             queryWrapper.like("title", keyword)
                     .like("category_name", keyword);
         }
+        queryWrapper.eq("is_del", false);
         if(!StringUtils.isEmpty(sortField)){
             queryWrapper.orderBy(true, "asc".equals(order), sortField);
         }else {
@@ -108,5 +109,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         List<BlogTagRelation> relations = tagList.stream().map(p -> new BlogTagRelation().setBlogId(blog.getId()).setTagId(p.getId())).collect(Collectors.toList());
         relationService.saveBatch(relations);
         return Result.success("操作成功！");
+    }
+
+    @Override
+    public Result delBatch(List<Long> ids) {
+        List<Blog> list = ids.stream().map(id -> new Blog().setId(id).setIsDel(true)).collect(Collectors.toList());
+        if(updateBatchById(list)){
+            return Result.success("操作成功！");
+        }
+        return Result.fail("批量删除错误！");
     }
 }

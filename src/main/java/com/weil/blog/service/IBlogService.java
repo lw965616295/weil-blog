@@ -5,6 +5,8 @@ import com.weil.blog.common.Result;
 import com.weil.blog.entity.Blog;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * <p>
  * 博客表 服务类
@@ -28,5 +30,13 @@ public interface IBlogService extends IService<Blog> {
      */
     IPage<Blog> getList(Long page, Long rows, String keyword, String sortField, String order);
 
+    /**
+     * 新增或者更新
+     */
     Result saveOrUpdateBlog(Blog blog);
+
+    /**
+     * 批量逻辑删除
+     */
+    Result delBatch(List<Long> ids);
 }

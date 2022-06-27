@@ -154,6 +154,11 @@ public class MainController {
     @PostMapping("/upload")
     @ResponseBody
     public Result upload(HttpServletRequest request, MultipartFile file){
+        // 文件大小限制
+        long size = file.getSize();
+        if(size > 1024*1024*10){
+            return Result.fail("上传失败，文件不能大于10MB！");
+        }
         // 判断系统，创建对应目录
         String dir = "";
         if(BlogUtil.isWindow()){
