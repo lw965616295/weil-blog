@@ -10,7 +10,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-parent</artifactId>
-        <version>2.2.2.RELEASE</version>
+        <version>2.3.7.RELEASE</version>
     </parent>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -85,6 +85,11 @@
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
             <version>2.3.2</version>
+        </dependency>
+        <!--校验-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <!--热部署-->
 <!--        <dependency>-->

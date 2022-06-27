@@ -1,8 +1,11 @@
 package com.weil.blog.controller.admin;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
+import com.weil.blog.common.BlogConstants;
+import com.weil.blog.common.Result;
 import com.weil.blog.entity.User;
 import com.weil.blog.service.IUserService;
+import com.weil.blog.utils.BlogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -17,6 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
 /**
  * @ClassName MainController
@@ -71,6 +81,7 @@ public class MainController {
             log.error("验证码获取错误，"+e.getMessage(), e);
         }
     }
+
     /**
      * 登录操作
      * @param username
@@ -105,6 +116,7 @@ public class MainController {
             return "admin/login";
         }
     }
+
     /**
      * 访问主页
      * @Return:
@@ -118,6 +130,7 @@ public class MainController {
         // 各维度数据展示
         return "admin/index";
     }
+
     /**
      * 登出
      * @Return:
@@ -128,5 +141,52 @@ public class MainController {
     public String logout(HttpServletRequest request){
         request.getSession().removeAttribute("nickname");
         return "admin/login";
+    }
+
+    /**
+     * 封面图上传
+     * @param request
+     * @param file
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/6/26 10:34
+     */
+    @PostMapping("/upload")
+    @ResponseBody
+    public Result upload(HttpServletRequest request, MultipartFile file){
+        // 判断系统，创建对应目录
+        String dir = "";
+        if(BlogUtil.isWindow()){
+            dir = BlogConstants.FILE_UPLOAD_DIR_WINDOW;
+        }else {
+            dir = BlogConstants.FILE_UPLOAD_DIR_LINUX;
+        }
+        File fileDir = new File(dir);
+        if(!fileDir.exists()){
+            fileDir.mkdirs();
+        }
+        // 生成文件名
+        String originalFilename = file.getOriginalFilename();
+        String suffix = BlogUtil.getSuffix(originalFilename);
+        StringBuilder nameBuilder = new StringBuilder();
+        nameBuilder.append(new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date()))
+                .append("_").append(new Random().nextInt(100)).append(suffix);
+        String tempName = nameBuilder.toString();
+        // 上传文件
+        File upFile = new File(dir + "/" + tempName);
+        try {
+            file.transferTo(upFile);
+        } catch (IOException e) {
+            log.error(e.getMessage(), e);
+            return Result.fail("上传文件失败！" + e.getMessage());
+        }
+        String picUrl;
+        try {
+            picUrl = BlogUtil.genFileUrl(request.getRequestURL().toString(), tempName);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            return Result.fail("生成图片url失败！" + e.getMessage());
+        }
+        return Result.success("操作成功！", picUrl);
     }
 }

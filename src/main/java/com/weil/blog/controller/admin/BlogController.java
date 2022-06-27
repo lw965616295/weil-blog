@@ -4,7 +4,6 @@ package com.weil.blog.controller.admin;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.weil.blog.common.Result;
 import com.weil.blog.entity.Blog;
-import com.weil.blog.entity.BlogCategory;
 import com.weil.blog.service.IBlogCategoryService;
 import com.weil.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
