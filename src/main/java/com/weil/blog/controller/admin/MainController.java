@@ -109,7 +109,7 @@ public class MainController {
         }
         User user = userService.login(username, password);
         if (user != null) {
-            session.setAttribute("nickname", user.getNickName());
+            session.setAttribute("user", user);
             return "redirect:/admin/index";
         } else {
             session.setAttribute("msg", "登陆失败，账号或者密码错误！");
@@ -139,7 +139,7 @@ public class MainController {
      */
     @GetMapping("/logout")
     public String logout(HttpServletRequest request){
-        request.getSession().removeAttribute("nickname");
+        request.getSession().removeAttribute("user");
         return "admin/login";
     }
 

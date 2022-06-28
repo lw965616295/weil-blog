@@ -1,5 +1,6 @@
 package com.weil.blog.service;
 
+import com.weil.blog.common.Result;
 import com.weil.blog.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -21,4 +22,14 @@ public interface IUserService extends IService<User> {
      * @Date: 2022/6/20 17:21
      */
     User login(String username, String password);
+
+    /**
+     * 更新账号或者昵称
+     */
+    Result updateName(User name);
+
+    /**
+     * 更新密码
+     */
+    Result updatePwd(User user, String originalPassword, String newPassword);
 }

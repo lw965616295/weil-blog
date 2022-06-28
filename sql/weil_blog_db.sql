@@ -18,7 +18,7 @@ INSERT INTO `tb_test` (id, name) values (1, 'name'),(2, 'age');
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `id` INT NOT NULL AUTO_INCREMENT COMMENT '用户id',
-    `name` VARCHAR ( 50 ) NOT NULL COMMENT '用户名',
+    `name` VARCHAR ( 50 ) NOT NULL UNIQUE COMMENT '用户名',
     `password` VARCHAR ( 50 ) NOT NULL COMMENT '密码',
     `nick_name` VARCHAR ( 50 ) NOT NULL COMMENT '昵称',
     `forbidden` TINYINT ( 1 ) DEFAULT '0' COMMENT '是否禁用：0未禁用，1禁用',
