@@ -94,7 +94,6 @@ CREATE TABLE `blog_tag_relation` (
 
 -- 博客评论表
 DROP TABLE IF EXISTS `blog_comment`;
-
 CREATE TABLE `blog_comment` (
     `id` BIGINT ( 20 ) NOT NULL AUTO_INCREMENT COMMENT '主键id',
     `blog_id` BIGINT ( 20 ) DEFAULT NULL COMMENT 'blog主键',
@@ -109,3 +108,17 @@ CREATE TABLE `blog_comment` (
     `is_del` TINYINT ( 1 ) NOT NULL DEFAULT '0' COMMENT '是否删除 0-未删除 1-已删除',
     PRIMARY KEY ( `id` )
 ) ENGINE = INNODB COMMENT '博客评论表';
+
+-- 友链表
+DROP TABLE IF EXISTS `blog_link`;
+CREATE TABLE `blog_link` (
+    `id` INT ( 11 ) NOT NULL AUTO_INCREMENT COMMENT '友链表主键id',
+    `type` TINYINT ( 4 ) NOT NULL DEFAULT '0' COMMENT '友链类别 0-友链 1-推荐 2-个人网站',
+    `name` VARCHAR ( 50 ) NOT NULL COMMENT '网站名称',
+    `url` VARCHAR ( 100 ) NOT NULL COMMENT '网站链接',
+    `description` VARCHAR ( 100 ) NOT NULL DEFAULT '' COMMENT '网站描述',
+    `rank` INT ( 11 ) NOT NULL DEFAULT '0' COMMENT '用于列表排序',
+    `is_del` TINYINT ( 1 ) NOT NULL DEFAULT '0' COMMENT '是否删除 0-未删除 1-已删除',
+    `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+    PRIMARY KEY ( `id` )
+) ENGINE = INNODB COMMENT '友链表';
