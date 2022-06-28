@@ -26,7 +26,7 @@ public class BlogCommentController {
     @Autowired
     private IBlogCommentService commentService;
     /**
-     * 分类页
+     * 评论页
      * @Return:
      * @Auther: weil
      * @Date: 2022/6/27 16:31
@@ -38,7 +38,7 @@ public class BlogCommentController {
     }
 
     /**
-     * 分页查询分类列表
+     * 分页查询评论列表
      * @param page 当前页
      * @param rows 每页数
      * @Return:

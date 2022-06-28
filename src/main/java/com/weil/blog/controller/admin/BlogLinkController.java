@@ -27,7 +27,7 @@ public class BlogLinkController {
     @Autowired
     private IBlogLinkService linkService;
     /**
-     * 标签页面
+     * 友链页面
      * @Return:
      * @Auther: weil
      * @Date: 2022/6/28 10:32

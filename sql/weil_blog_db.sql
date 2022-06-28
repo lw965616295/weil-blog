@@ -122,3 +122,27 @@ CREATE TABLE `blog_link` (
     `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
     PRIMARY KEY ( `id` )
 ) ENGINE = INNODB COMMENT '友链表';
+
+-- 配置表
+DROP TABLE IF EXISTS `blog_config`;
+CREATE TABLE `blog_config` (
+   `name` VARCHAR ( 100 ) NOT NULL COMMENT '配置项的名称',
+   `value` VARCHAR ( 200 ) NOT NULL DEFAULT '' COMMENT '配置项的值',
+   `create_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+   `update_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改日期',
+   PRIMARY KEY ( `name` )
+) ENGINE = INNODB COMMENT '配置表';
+INSERT INTO `blog_config` ( `name`, `value` )
+VALUES
+( 'footerAbout', 'weil-blog. have fun.' ),
+( 'footerCopyRight', '2022 weil' ),
+( 'footerICP', '苏ICP备10086号-1' ),
+( 'footerPoweredBy', 'https://github.com/lw965616295' ),
+( 'footerPoweredByURL', 'https://github.com/lw965616295' ),
+( 'websiteDescription', 'weil- blog是SpringBoot+Thymeleaf+Mybatis建造的个人博客网站' ),
+( 'websiteIcon', '/dist/img/favicon.png' ),
+( 'websiteLogo', '/dist/img/logo2.png' ),
+( 'websiteName', 'weil-blog' ),
+( 'yourAvatar', '/dist/img/13.png' ),
+( 'yourEmail', '965616295@qq.com' ),
+( 'yourName', 'weil' );
