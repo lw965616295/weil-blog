@@ -73,4 +73,9 @@ public class BlogCommentServiceImpl extends ServiceImpl<BlogCommentMapper, BlogC
         }
         return Result.fail("批量删除失败！");
     }
+
+    @Override
+    public Long getTotalCommentCount() {
+        return count(new LambdaQueryWrapper<BlogComment>().eq(BlogComment::getIsDel, 0));
+    }
 }

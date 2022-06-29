@@ -39,4 +39,9 @@ public interface IBlogService extends IService<Blog> {
      * 批量逻辑删除
      */
     Result delBatch(List<Long> ids);
+
+    /**
+     * 获取所有博客数
+     */
+    Long getTotalBlogCount();
 }

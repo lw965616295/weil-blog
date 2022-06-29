@@ -48,4 +48,9 @@ public class BlogLinkServiceImpl extends ServiceImpl<BlogLinkMapper, BlogLink> i
         }
         return Result.fail("删除失败！");
     }
+
+    @Override
+    public Long getTotalLinkCount() {
+        return count(new LambdaQueryWrapper<BlogLink>().eq(BlogLink::getIsDel, 0));
+    }
 }

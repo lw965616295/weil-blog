@@ -1,5 +1,6 @@
 package com.weil.blog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -118,5 +119,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             return Result.success("操作成功！");
         }
         return Result.fail("批量删除错误！");
+    }
+
+    @Override
+    public Long getTotalBlogCount() {
+        return count(new LambdaQueryWrapper<Blog>().eq(Blog::getIsDel, 0));
     }
 }

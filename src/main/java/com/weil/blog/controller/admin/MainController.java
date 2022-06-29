@@ -4,7 +4,7 @@ import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.weil.blog.common.BlogConstants;
 import com.weil.blog.common.Result;
 import com.weil.blog.entity.User;
-import com.weil.blog.service.IUserService;
+import com.weil.blog.service.*;
 import com.weil.blog.utils.BlogUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +49,16 @@ public class MainController {
      */
     @Autowired
     private IUserService userService;
+    @Autowired
+    private IBlogCategoryService categoryService;
+    @Autowired
+    private IBlogService blogService;
+    @Autowired
+    private IBlogLinkService linkService;
+    @Autowired
+    private IBlogTagService tagService;
+    @Autowired
+    private IBlogCommentService commentService;
     /**
      * 请求登录页
      * @Return:
@@ -128,6 +138,11 @@ public class MainController {
         // 左侧栏菜单dashboard选中状态
         request.setAttribute("path", "index");
         // 各维度数据展示
+        request.setAttribute("categoryCount", categoryService.getTotalCategoryCount());
+        request.setAttribute("blogCount", blogService.getTotalBlogCount());
+        request.setAttribute("linkCount", linkService.getTotalLinkCount());
+        request.setAttribute("tagCount", tagService.getTotalTagCount());
+        request.setAttribute("commentCount", commentService.getTotalCommentCount());
         return "admin/index";
     }
 

@@ -39,4 +39,9 @@ public interface IBlogTagService extends IService<BlogTag> {
      */
     @Cacheable(cacheNames = "blog:tag", key = "#tagName")
     BlogTag getTagByName(String tagName);
+
+    /**
+     * 所有标签数
+     */
+    Long getTotalTagCount();
 }

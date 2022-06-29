@@ -57,4 +57,9 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
         }
         return list.get(0);
     }
+
+    @Override
+    public Long getTotalTagCount() {
+        return count(new LambdaQueryWrapper<BlogTag>().eq(BlogTag::getIsDel, 0));
+    }
 }

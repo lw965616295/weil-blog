@@ -36,4 +36,8 @@ public interface IBlogCommentService extends IService<BlogComment> {
      */
     Result deleteByIds(List<Long> ids);
 
+    /**
+     * 所有评论数
+     */
+    Long getTotalCommentCount();
 }

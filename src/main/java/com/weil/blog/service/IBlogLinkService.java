@@ -30,4 +30,9 @@ public interface IBlogLinkService extends IService<BlogLink> {
      * 批量删除
      */
     Result deleteByIds(List<Integer> ids);
+
+    /**
+     * 所有友链数
+     */
+    Long getTotalLinkCount();
 }

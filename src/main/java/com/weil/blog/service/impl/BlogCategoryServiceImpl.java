@@ -40,4 +40,9 @@ public class BlogCategoryServiceImpl extends ServiceImpl<BlogCategoryMapper, Blo
     public List<BlogCategory> getAll() {
         return list(new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getIsDel, 0).orderByDesc(BlogCategory::getWeight));
     }
+
+    @Override
+    public Long getTotalCategoryCount() {
+        return count(new LambdaQueryWrapper<BlogCategory>().eq(BlogCategory::getIsDel, 0));
+    }
 }
