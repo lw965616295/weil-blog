@@ -93,7 +93,8 @@ public class BlogCommentServiceImpl extends ServiceImpl<BlogCommentMapper, BlogC
         categoryPage.setCurrent(page);
         categoryPage.setPages(rows);
         return page(categoryPage, new LambdaQueryWrapper<BlogComment>()
-                .eq(BlogComment::getIsDel, 0)
+                .eq(BlogComment::getIsDel, false)
+                .eq(BlogComment::getStatus, true)
                 .orderByAsc(BlogComment::getCreateDate)
                 .eq(BlogComment::getBlogId, blogId));
     }

@@ -1,19 +1,20 @@
 package com.weil.blog.controller.blog;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.weil.blog.common.Result;
 import com.weil.blog.entity.Blog;
+import com.weil.blog.entity.BlogComment;
+import com.weil.blog.entity.BlogLink;
 import com.weil.blog.entity.dto.BlogDetailDto;
-import com.weil.blog.service.IBlogCommentService;
-import com.weil.blog.service.IBlogConfigService;
-import com.weil.blog.service.IBlogService;
-import com.weil.blog.service.IBlogTagService;
+import com.weil.blog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName WeilBlogController
@@ -40,6 +41,8 @@ public class WeilBlogController {
     private IBlogTagService tagService;
     @Autowired
     private IBlogCommentService commentService;
+    @Autowired
+    private IBlogLinkService linkService;
     /**
      * 博客首页
      * @Return:
@@ -99,5 +102,66 @@ public class WeilBlogController {
         request.setAttribute("configurations", configService.getNameValueMap());
         return "blog/" + theme + "/detail";
     }
+    /**
+     * 提交评论
+     * @param comment
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/6/30 16:44
+     */
+    @PostMapping("/blog/comment")
+    @ResponseBody
+    public Result saveComment(HttpServletRequest request, @RequestBody BlogComment comment){
+        String code = request.getSession().getAttribute("captcha") + "";
+        if (StringUtils.isEmpty(code) || !code.equals(comment.getVerifyCode())) {
+            return Result.fail("验证码错误！");
+        }
+        comment.setCommentatorIp(request.getRemoteAddr());
+        return commentService.saveComment(comment);
+    }
 
+    /**
+     * 友链页
+     * @param request
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/7/1 11:01
+     */
+    @GetMapping({"/link"})
+    public String link(HttpServletRequest request) {
+        request.setAttribute("pageName", "友情链接");
+        Map<Integer, List<BlogLink>> linkMap = linkService.getLinksForWeb();
+        if (linkMap != null) {
+            //判断友链类别并封装数据 0-友链 1-推荐 2-个人网站
+            if (linkMap.containsKey(0)) {
+                request.setAttribute("favoriteLinks", linkMap.get(0));
+            }
+            if (linkMap.containsKey(1)) {
+                request.setAttribute("recommendLinks", linkMap.get(1));
+            }
+            if (linkMap.containsKey(2)) {
+                request.setAttribute("personalLinks", linkMap.get(2));
+            }
+        }
+        request.setAttribute("configurations", configService.getNameValueMap());
+        return "blog/" + theme + "/link";
+    }
+
+    /**
+     * 关于页面 以及其他配置了url的文章页
+     *
+     * @return
+     */
+    @GetMapping({"/{url}"})
+    public String detail(HttpServletRequest request, @PathVariable("url") String url) {
+        BlogDetailDto detailDto = blogService.getBlogDetailByUrl(url);
+        if (detailDto != null) {
+            request.setAttribute("detailDto", detailDto);
+            request.setAttribute("pageName", url);
+            request.setAttribute("configurations", configService.getNameValueMap());
+            return "blog/" + theme + "/detail";
+        } else {
+            return "error/error_400";
+        }
+    }
 }

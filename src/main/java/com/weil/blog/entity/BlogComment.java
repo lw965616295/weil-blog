@@ -1,6 +1,7 @@
 package com.weil.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -84,5 +85,11 @@ public class BlogComment implements Serializable {
      * 是否删除 0-未删除 1-已删除
      */
     private Boolean isDel;
+
+    /**
+     * web页面提交验证码
+     */
+    @TableField(exist = false)
+    private String verifyCode;
 
 }

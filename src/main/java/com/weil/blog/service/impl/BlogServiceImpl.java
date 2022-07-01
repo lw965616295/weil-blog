@@ -19,6 +19,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
@@ -167,8 +168,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public BlogDetailDto getDetail(Long id) {
         Blog blog = getById(id);
+        return getDetailDto(blog);
+    }
+
+    BlogDetailDto getDetailDto(Blog blog){
         // 更新阅读量
-        updateById(new Blog().setId(id).setViews(blog.getViews()+1));
+        updateById(new Blog().setId(blog.getId()).setViews(blog.getViews()+1));
         // 封装dto
         BlogDetailDto detailDto = new BlogDetailDto();
         BeanUtils.copyProperties(blog, detailDto);
@@ -187,9 +192,19 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
         }
         //设置评论数
         detailDto.setCommentCount(commentMapper.selectCount(new LambdaQueryWrapper<BlogComment>()
-                .eq(BlogComment::getBlogId, id)
+                .eq(BlogComment::getBlogId, blog.getId())
                 .eq(BlogComment::getStatus, true)
                 .eq(BlogComment::getIsDel, false)));
         return detailDto;
+    }
+    @Override
+    public BlogDetailDto getBlogDetailByUrl(String url) {
+        // 通过url查对应的一个blog
+        List<Blog> list = list(new LambdaQueryWrapper<Blog>().eq(Blog::getIsDel, false).eq(Blog::getStatus, true).eq(Blog::getUrl, url).last("limit 1"));
+        if(CollectionUtils.isEmpty(list)){
+            return null;
+        }else {
+            return getDetailDto(list.get(0));
+        }
     }
 }

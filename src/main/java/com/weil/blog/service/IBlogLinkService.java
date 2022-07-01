@@ -6,6 +6,7 @@ import com.weil.blog.common.Result;
 import com.weil.blog.entity.BlogLink;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -35,4 +36,9 @@ public interface IBlogLinkService extends IService<BlogLink> {
      * 所有友链数
      */
     Long getTotalLinkCount();
+
+    /**
+     * 获取友链，按类别
+     */
+    Map<Integer, List<BlogLink>> getLinksForWeb();
 }

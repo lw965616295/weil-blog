@@ -11,6 +11,7 @@ import com.weil.blog.service.IBlogLinkService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -52,5 +53,10 @@ public class BlogLinkServiceImpl extends ServiceImpl<BlogLinkMapper, BlogLink> i
     @Override
     public Long getTotalLinkCount() {
         return count(new LambdaQueryWrapper<BlogLink>().eq(BlogLink::getIsDel, 0));
+    }
+
+    @Override
+    public Map<Integer, List<BlogLink>> getLinksForWeb() {
+        return list(new LambdaQueryWrapper<BlogLink>().eq(BlogLink::getIsDel, false)).stream().collect(Collectors.groupingBy(BlogLink::getType));
     }
 }

@@ -61,4 +61,9 @@ public interface IBlogService extends IService<Blog> {
      * 获取博客详情页
      */
     BlogDetailDto getDetail(Long id);
+
+    /**
+     * 个人页面或者其他配置了url
+     */
+    BlogDetailDto getBlogDetailByUrl(String url);
 }
