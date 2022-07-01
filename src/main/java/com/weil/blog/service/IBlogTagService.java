@@ -44,4 +44,9 @@ public interface IBlogTagService extends IService<BlogTag> {
      * 所有标签数
      */
     Long getTotalTagCount();
+
+    /**
+     * 热门标签，前i名
+     */
+    List<BlogTag> getHotTag(int i);
 }

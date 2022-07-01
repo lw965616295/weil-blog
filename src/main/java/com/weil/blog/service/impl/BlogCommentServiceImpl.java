@@ -59,7 +59,7 @@ public class BlogCommentServiceImpl extends ServiceImpl<BlogCommentMapper, BlogC
         if(!comm.getStatus()){
             return Result.fail("先进行审核！");
         }
-        if(updateById(comm.setReplyDate(LocalDateTime.now()).setReplyContent(comment.getReplyContent()))){
+        if(updateById(comm.setReplyDate(new Date()).setReplyContent(comment.getReplyContent()))){
             return Result.success("操作成功！");
         }
         return Result.fail("回复失败！");
@@ -77,5 +77,24 @@ public class BlogCommentServiceImpl extends ServiceImpl<BlogCommentMapper, BlogC
     @Override
     public Long getTotalCommentCount() {
         return count(new LambdaQueryWrapper<BlogComment>().eq(BlogComment::getIsDel, 0));
+    }
+
+    @Override
+    public Result saveComment(BlogComment comment) {
+        if (save(comment)) {
+            return Result.success("保存成功！");
+        }
+        return Result.fail("操作失败！");
+    }
+
+    @Override
+    public IPage<BlogComment> getList2(Long page, Long rows, Long blogId) {
+        IPage<BlogComment> categoryPage = new Page<>();
+        categoryPage.setCurrent(page);
+        categoryPage.setPages(rows);
+        return page(categoryPage, new LambdaQueryWrapper<BlogComment>()
+                .eq(BlogComment::getIsDel, 0)
+                .orderByAsc(BlogComment::getCreateDate)
+                .eq(BlogComment::getBlogId, blogId));
     }
 }

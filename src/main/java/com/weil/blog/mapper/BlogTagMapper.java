@@ -2,6 +2,9 @@ package com.weil.blog.mapper;
 
 import com.weil.blog.entity.BlogTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface BlogTagMapper extends BaseMapper<BlogTag> {
 
+    List<BlogTag> getHotTag(@Param("i") int i);
 }

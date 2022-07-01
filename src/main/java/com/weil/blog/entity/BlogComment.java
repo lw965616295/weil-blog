@@ -9,7 +9,7 @@ import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * <p>
@@ -57,7 +57,7 @@ public class BlogComment implements Serializable {
      * 评论提交时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime createDate;
+    private Date createDate;
 
     /**
      * 评论时的ip地址
@@ -73,7 +73,7 @@ public class BlogComment implements Serializable {
      * 回复时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private LocalDateTime replyDate;
+    private Date replyDate;
 
     /**
      * 是否审核通过 0-未审核 1-审核通过

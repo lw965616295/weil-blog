@@ -40,4 +40,14 @@ public interface IBlogCommentService extends IService<BlogComment> {
      * 所有评论数
      */
     Long getTotalCommentCount();
+
+    /**
+     * 保存评论
+     */
+    Result saveComment(BlogComment comment);
+
+    /**
+     * 分页查询分类记录
+     */
+    IPage<BlogComment> getList2(Long page, Long rows, Long blogId);
 }

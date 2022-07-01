@@ -1,11 +1,16 @@
 package com.weil.blog.utils;
 
 import com.weil.blog.common.BlogConstants;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 
 /**
  * @ClassName BlogUtil
@@ -49,6 +54,21 @@ public class BlogUtil {
          */
         URI u2 = new URI(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(), null, null, null);
         return u2.toString() + BlogConstants.PATH_PATTERN.substring(0, BlogConstants.PATH_PATTERN.indexOf("*")) + tempName;
+    }
+
+    /**
+     * markdown => html
+     */
+    public static String mdToHtml(String markdownString) {
+        if (StringUtils.isEmpty(markdownString)) {
+            return "";
+        }
+//        java.util.List<Extension> extensions = Arrays.asList(TablesExtension.create());
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(markdownString);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String content = renderer.render(document);
+        return content;
     }
 
     public static void main(String[] args) throws Exception {

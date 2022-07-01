@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.weil.blog.common.Result;
 import com.weil.blog.entity.Blog;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.weil.blog.entity.dto.BlogDetailDto;
 
 import java.util.List;
 
@@ -44,4 +45,20 @@ public interface IBlogService extends IService<Blog> {
      * 获取所有博客数
      */
     Long getTotalBlogCount();
+
+//----------------------------博客前端页--------------------------
+    /**
+     * 用于blog页查询分页
+     */
+    IPage<Blog> getList2(Long page, Long pageSize, String tag, String category, String search);
+
+    /**
+     * 查询最新1，最火2博客
+     */
+    List<Blog> getBlogForWeb(int i, Integer blogCount);
+
+    /**
+     * 获取博客详情页
+     */
+    BlogDetailDto getDetail(Long id);
 }

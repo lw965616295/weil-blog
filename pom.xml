@@ -91,6 +91,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+<!--        markdown=>html工具-->
+        <!-- commonmark core -->
+        <dependency>
+            <groupId>com.atlassian.commonmark</groupId>
+            <artifactId>commonmark</artifactId>
+            <version>0.8.0</version>
+        </dependency>
+<!--        &lt;!&ndash; commonmark table &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.atlassian.commonmark</groupId>-->
+<!--            <artifactId>commonmark-ext-gfm-tables</artifactId>-->
+<!--            <version>0.8.0</version>-->
+<!--        </dependency>-->
         <!--热部署-->
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->

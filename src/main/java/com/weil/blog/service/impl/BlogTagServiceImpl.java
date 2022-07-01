@@ -8,9 +8,11 @@ import com.weil.blog.common.Result;
 import com.weil.blog.entity.BlogTag;
 import com.weil.blog.mapper.BlogTagMapper;
 import com.weil.blog.service.IBlogTagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,9 @@ import java.util.stream.Collectors;
  */
 @Service
 public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> implements IBlogTagService {
+
+    @Autowired
+    private BlogTagMapper blogTagMapper;
 
     @Override
     public IPage<BlogTag> getList(Long page, Long rows) {
@@ -61,5 +66,11 @@ public class BlogTagServiceImpl extends ServiceImpl<BlogTagMapper, BlogTag> impl
     @Override
     public Long getTotalTagCount() {
         return count(new LambdaQueryWrapper<BlogTag>().eq(BlogTag::getIsDel, 0));
+    }
+
+    @Override
+    public List<BlogTag> getHotTag(int i) {
+        List<BlogTag> tag = blogTagMapper.getHotTag(i);
+        return tag;
     }
 }

@@ -91,4 +91,18 @@ public class BlogCommentController {
         }
         return commentService.deleteByIds(ids);
     }
+
+    /**
+     * 提交评论
+     * @param null
+     * @Return:
+     * @Auther: weil
+     * @Date: 2022/6/30 16:44
+     */
+    @PostMapping("")
+    @ResponseBody
+    public Result save(HttpServletRequest request, @RequestBody BlogComment comment){
+        comment.setCommentatorIp(request.getRemoteAddr());
+        return commentService.saveComment(comment);
+    }
 }
