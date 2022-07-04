@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<footer class="footer blog-footer" th:fragment="footer-fragment">
+    <div class="blog-text-center">
+        &copy;
+        <a th:text="${configurations.get('footerAbout')}">your single blog.</a>  &nbsp;   • &nbsp;
+        Powered by <a href="https://github.com/ZHENFENG13" target="_blank" th:text="${configurations.get('footerCopyRight')}">2022 weil</a><br/>
+        ICP <a href="http://www.beian.miit.gov.cn" th:text="${configurations.get('footerICP')}">苏ICP备 xxxxxx-x号</a>
+    </div>
+</footer>
+</html>
