@@ -152,7 +152,7 @@ public class WeilBlogController {
      *
      * @return
      */
-    @GetMapping({"/{url}"})
+    @GetMapping({"/blog/{url}"})
     public String detail(HttpServletRequest request, @PathVariable("url") String url) {
         BlogDetailDto detailDto = blogService.getBlogDetailByUrl(url);
         if (detailDto != null) {

@@ -18,12 +18,12 @@ public class AutoGenerator {
         String url = "jdbc:mysql://192.168.85.131:3306/weil_blog?useUnicode=true&characterEncoding=utf8&autoReconnect=true&useSSL=false&serverTimezone=UTC";
         String username = "root";
         String password = "root";
-        String path = "D:/codeDir/weil_blog";
+        String path = "D:/codeDir/weil-blog";
         FastAutoGenerator.create(url, username, password)
                 .globalConfig(builder -> {
                     builder.author("weil") // 设置作者
 //                            .enableSwagger() // 开启 swagger 模式
-                            .fileOverride() // 覆盖已生成文件
+//                            .fileOverride() // 覆盖已生成文件
                             .commentDate("yyyy-MM-dd HH:mm:ss") //注释日期
                             .outputDir(path + "/src/main/java"); // 指定输出目录
                 })
@@ -33,7 +33,7 @@ public class AutoGenerator {
                             .pathInfo(Collections.singletonMap(OutputFile.mapperXml, path+"/src/main/resources/mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig(builder -> {
-                    builder.addInclude("tb_test") // 设置需要生成的表名
+                    builder.addInclude("blog_config") // 设置需要生成的表名
                             .addTablePrefix("", ""); // 设置过滤表前缀
                 })
                 .templateEngine(new FreemarkerTemplateEngine()) // 使用Freemarker引擎模板，默认的是Velocity引擎模板

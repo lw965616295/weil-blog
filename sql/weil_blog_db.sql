@@ -141,8 +141,8 @@ VALUES
 ( 'footerPoweredByURL', 'https://github.com/lw965616295' ),
 ( 'websiteDescription', 'weil- blog是SpringBoot+Thymeleaf+Mybatis建造的个人博客网站' ),
 ( 'websiteIcon', '/dist/img/favicon.png' ),
-( 'websiteLogo', '/dist/img/logo2.png' ),
+( 'websiteLogo', '/dist/img/logo2.jpg' ),
 ( 'websiteName', 'weil-blog' ),
-( 'yourAvatar', '/dist/img/13.png' ),
+( 'yourAvatar', '/dist/img/weil.png' ),
 ( 'yourEmail', '965616295@qq.com' ),
 ( 'yourName', 'weil' );
