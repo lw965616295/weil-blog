@@ -6,6 +6,7 @@
     <title th:text="${configurations.get('websiteName')}+' | '+${pageName}">详情页</title>
     <meta name="description" th:content="${configurations.get('websiteDescription')}">
     <meta name="viewport" content="width=device-width">
+    <meta name="referrer" content="no-referrer" /> <!--隐藏发送请求时请求头表示来源的referrer字段-->
     <link rel="shortcut icon" th:href="@{${configurations.get('websiteIcon')}}"/>
     <link rel="stylesheet" th:href="@{/theme/amaze/css/base.css}">
     <!-- highlight -->
